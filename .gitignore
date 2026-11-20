@@ -1,0 +1,4 @@
+WebContent/WEB-INF/classes/
+WebContent/WEB-INF/lib/*.jar
+*.class
+*.bak
