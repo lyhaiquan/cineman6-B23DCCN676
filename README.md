@@ -9,7 +9,7 @@ Mã nguồn cài đặt hai module của bài, đúng theo các biểu đồ thi
 | 1 | Khách hàng đăng kí thành viên (Register Membership 6) | Hình 15 | v.3, 26 bước |
 | 2 | Nhân viên quản lí xem thống kê phim theo doanh thu (View Movie Revenue Statistics 6) | Hình 16 | v.3, 33 bước |
 
-Công nghệ: JSP + JDBC + stored procedure (không servlet, không framework), Java 17, Tomcat 9, MariaDB 10.11 / MySQL 8.
+Công nghệ: JSP + JDBC + stored procedure (không servlet, không framework), Java 17, Tomcat 9, MariaDB 10.11 (tương thích MySQL, kết nối bằng driver MySQL Connector/J). Đã chạy thử trên MariaDB 10.11; CSDL cài đặt gồm 17 bảng và 6 stored procedure.
 
 ## Cấu trúc
 
@@ -45,7 +45,7 @@ Mỗi phần tử HTML có `id` và `name` trùng tên thuộc tính của lớp
 4. Đặt biến môi trường cho Tomcat (không ghi mật khẩu vào mã nguồn):
    ```
    set CINEMAN6_DB_USER=root
-   set CINEMAN6_DB_PASS=<mật khẩu MariaDB/MySQL>
+   set CINEMAN6_DB_PASS=<mật khẩu MariaDB>
    rem tuỳ chọn: set CINEMAN6_DB_URL=jdbc:mysql://localhost:3306/cineman6?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&characterEncoding=UTF-8
    ```
 5. Chép thư mục `WebContent` vào `webapps/cineman6` của Tomcat rồi khởi động Tomcat.
