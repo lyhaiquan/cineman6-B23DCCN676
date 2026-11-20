@@ -44,7 +44,7 @@ CREATE TABLE tblperson6 (
   phone       VARCHAR(20)  UNIQUE,
   email       VARCHAR(100) UNIQUE,
   -- gia dinh A25: dung ba gia tri, khop hang STATUS_* cua lop Person6
-  status      ENUM('ACTIVE','LOCKED','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
+  status      VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',  -- ACTIVE, LOCKED, INACTIVE (kiem tra trong themKhachhang6)
   note        VARCHAR(255),
   tblfullname6id INT,
   tbladdress6id  INT,
@@ -227,7 +227,7 @@ CREATE PROCEDURE themKhachhang6(
 proc: BEGIN
   DECLARE v_fullname INT;
   DECLARE v_address  INT;
-  -- SQLWARNING: gia tri ENUM sai bao SQLSTATE 01000, khong thuoc SQLEXCEPTION
+  -- SQLWARNING: du lieu sai kieu, bi cat chuoi... bao SQLSTATE 01000, khong thuoc SQLEXCEPTION
   DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING
   BEGIN
     ROLLBACK;
