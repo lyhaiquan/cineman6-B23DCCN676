@@ -33,7 +33,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Đăng kí thành viên</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=2">
 <script type="text/javascript">
 var daHuy = false;   // true khi khach hang click subCancel
 

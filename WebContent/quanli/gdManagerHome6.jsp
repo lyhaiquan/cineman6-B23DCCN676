@@ -18,7 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Trang chủ quản lí</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=2">
 </head>
 <body>
 <h2>CINEMAN — Trang chủ quản lí</h2>

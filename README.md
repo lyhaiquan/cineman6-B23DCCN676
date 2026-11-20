@@ -51,11 +51,37 @@ Mỗi phần tử HTML có `id` và `name` trùng tên thuộc tính của lớp
 5. Chép thư mục `WebContent` vào `webapps/cineman6` của Tomcat rồi khởi động Tomcat.
 6. Mở `http://localhost:8080/cineman6/` (module 1) và `http://localhost:8080/cineman6/gdLogin6.jsp` (module 2).
 
+### Chạy bằng terminal PowerShell (ví dụ terminal của VS Code)
+
+Sửa đường dẫn Tomcat, JDK cho đúng máy của bạn. Các biến môi trường phải đặt trong cùng cửa sổ terminal với lệnh `startup.bat`.
+
+```powershell
+# 1. tạo CSDL (hỏi mật khẩu)
+& "C:\Program Files\MariaDB 10.11\bin\mysql.exe" -uroot -p --default-character-set=utf8mb4 -e "source sql/cineman6.sql"
+
+# 2. biên dịch src/ (cần mysql-connector-j-8.4.0.jar trong WebContent/WEB-INF/lib)
+powershell -ExecutionPolicy Bypass -File build.ps1
+
+# 3. chép sang Tomcat
+$tomcat = "D:\tomcat9\apache-tomcat-9.0.124"
+New-Item -ItemType Directory -Force "$tomcat\webapps\cineman6" | Out-Null
+Copy-Item -Recurse -Force WebContent\* "$tomcat\webapps\cineman6\"
+
+# 4. đặt biến môi trường rồi bật Tomcat
+$env:JAVA_HOME = "C:\Program Files\Microsoft\jdk-17.0.19.10-hotspot"
+$env:CINEMAN6_DB_USER = "root"
+$env:CINEMAN6_DB_PASS = "<mật khẩu>"
+& "$tomcat\bin\startup.bat"
+```
+
+Tắt Tomcat: `& "$tomcat\bin\shutdown.bat"`. Sửa JSP, CSS thì chỉ cần chép lại (bước 3) rồi tải lại trang; sửa Java thì biên dịch, chép lại và khởi động lại Tomcat.
+
 ## Dữ liệu mẫu
 
 - Đăng kí thử theo kịch bản: Nguyễn Thị B, 0987654321, b.nguyen@gmail.com (chưa có trong CSDL). Đăng kí lần hai với cùng số điện thoại sẽ ra thông báo "Số điện thoại hoặc email đã được đăng kí."
 - Thống kê: chọn 01/08/2026 – 31/08/2026; phim "Mắt Biếc 2", suất ST1042 có 47 hoá đơn, 120 vé, 17.970.000 đồng. Suất ST1131 chưa có hoá đơn (thử ngoại lệ). Chọn tháng 01/2025 để thử trường hợp không có dữ liệu.
 - Hoá đơn tại quầy luôn có nhân viên lập, có thể là khách vãng lai; hoá đơn trực tuyến luôn gắn khách thành viên, không có nhân viên lập.
+- Có 10 phim, 30 suất chiếu (29 suất trong tháng 8/2026), 389 hoá đơn. Ba phim đầu khớp thứ tự Bảng 3; 7 phim thêm (ST2001–ST2021, mỗi phim 3 suất) có doanh thu thấp hơn để bảng thống kê dài hơn. Thống kê 01/08/2026 – 31/08/2026 ra 10 phim, 920 vé, 96.482.000 đồng.
 - Số phim, số suất của dữ liệu mẫu nhỏ hơn số liệu minh hoạ trong báo cáo; riêng suất ST1042 và ba hoá đơn đầu khớp Bảng 4, Bảng 5.
 
 ## Ngoài phạm vi

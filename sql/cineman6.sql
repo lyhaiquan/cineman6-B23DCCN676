@@ -414,6 +414,23 @@ INSERT INTO tblmovie6(id, title, director, mainactors, duration, releasedate, ag
   (3, 'Nhà Bà Nữ 2', 'Trấn Thành', 'Lê Giang, Uyển Ân', 120, '2026-06-20', 'T16',
       'Chuyện gia đình bà Nữ sau nhiều năm.', 'SHOWING');
 
+-- Them 7 phim, 21 suat chieu thang 8 de xem thong ke (doanh thu moi phim deu thap hon 3 phim cua Bang 3)
+INSERT INTO tblmovie6(id, title, director, mainactors, duration, releasedate, agerating, synopsis, status) VALUES
+  (4, 'Hẻm Cụt', 'Nguyễn Minh Tâm', 'Quang Tuấn, Hồng Ánh', 110, '2026-07-10', 'T16',
+      'Một đêm mất điện trong con hẻm nhỏ giữa lòng thành phố.', 'SHOWING'),
+  (5, 'Mùa Hè Ở Phố Cổ', 'Lê Thanh Hà', 'Kaity Nguyễn, Hứa Vĩ Văn', 105, '2026-07-17', 'P',
+      'Chuyện tình mùa hè của hai người trẻ ở Hội An.', 'SHOWING'),
+  (6, 'Biệt Đội Sấm Sét', 'Đỗ Quang Huy', 'Thanh Sơn, Ngô Kiến Huy', 125, '2026-07-31', 'T13',
+      'Nhóm cứu hộ đối mặt với cơn bão lớn nhất thập kỉ.', 'SHOWING'),
+  (7, 'Con Đường Cát Trắng', 'Phạm Hoài Nam', 'Thu Trang, Tiến Luật', 100, '2026-08-01', 'P',
+      'Hành trình xuyên miền Trung của một gia đình.', 'SHOWING'),
+  (8, 'Bí Mật Tầng 13', 'Trần Bảo Khánh', 'Diễm My, Hồng Đào', 98, '2026-08-07', 'T18',
+      'Những tiếng động lạ trong toà chung cư cũ.', 'SHOWING'),
+  (9, 'Chuyến Tàu Cuối Năm', 'Vũ Ngọc Lan', 'NSND Kim Xuân, Trấn Thành', 115, '2026-08-14', 'P',
+      'Những vị khách tình cờ gặp nhau trên chuyến tàu Bắc Nam.', 'SHOWING'),
+  (10, 'Cô Gái Đến Từ Sao Hoả', 'Hoàng Anh Đức', 'Ninh Dương Lan Ngọc', 92, '2026-08-21', 'P',
+      'Phim hoạt hình phiêu lưu cho cả gia đình.', 'SHOWING');
+
 INSERT INTO tblscreeningroom6(id, name, capacity, description) VALUES
   (1, 'P01', 150, 'Phòng chiếu 2D/3D lớn'),
   (2, 'P02', 100, 'Phòng chiếu 2D/3D vừa'),
@@ -508,6 +525,28 @@ SELECT x.code, x.t1, x.t2, x.price, 'FINISHED', x.movie, x.room, sd.id, x.slot, 
     UNION ALL SELECT 'ST1120', '2026-08-21 20:00:00', '2026-08-21 22:00:00', 140000, 3, 3, 3, 3
     UNION ALL SELECT 'ST1131', '2026-08-24 19:30:00', '2026-08-24 21:45:00', 150000, 1, 3, 3, 3
     UNION ALL SELECT 'ST1150', '2026-09-02 09:30:00', '2026-09-02 11:05:00',  80000, 2, 1, 1, 1
+    -- 21 suat cua 7 phim them
+    UNION ALL SELECT 'ST2001', '2026-08-02 20:00:00', '2026-08-02 21:50:00', 90000, 4, 1, 3, 1
+    UNION ALL SELECT 'ST2002', '2026-08-09 19:00:00', '2026-08-09 20:50:00', 108000, 4, 2, 3, 2
+    UNION ALL SELECT 'ST2003', '2026-08-16 14:30:00', '2026-08-16 16:20:00', 80000, 4, 1, 2, 1
+    UNION ALL SELECT 'ST2004', '2026-08-04 09:00:00', '2026-08-04 10:45:00', 72000, 5, 2, 1, 1
+    UNION ALL SELECT 'ST2005', '2026-08-11 15:00:00', '2026-08-11 16:45:00', 80000, 5, 1, 2, 1
+    UNION ALL SELECT 'ST2006', '2026-08-25 19:30:00', '2026-08-25 21:15:00', 96000, 5, 2, 3, 1
+    UNION ALL SELECT 'ST2007', '2026-08-01 19:00:00', '2026-08-01 21:05:00', 150000, 6, 3, 3, 3
+    UNION ALL SELECT 'ST2008', '2026-08-08 20:30:00', '2026-08-08 22:35:00', 165000, 6, 3, 3, 3
+    UNION ALL SELECT 'ST2009', '2026-08-22 14:00:00', '2026-08-22 16:05:00', 100000, 6, 1, 2, 2
+    UNION ALL SELECT 'ST2010', '2026-08-06 09:30:00', '2026-08-06 11:10:00', 72000, 7, 1, 1, 1
+    UNION ALL SELECT 'ST2011', '2026-08-13 15:30:00', '2026-08-13 17:10:00', 80000, 7, 2, 2, 1
+    UNION ALL SELECT 'ST2012', '2026-08-27 18:30:00', '2026-08-27 20:10:00', 96000, 7, 1, 3, 1
+    UNION ALL SELECT 'ST2013', '2026-08-08 21:00:00', '2026-08-08 22:38:00', 96000, 8, 2, 3, 1
+    UNION ALL SELECT 'ST2014', '2026-08-15 21:30:00', '2026-08-15 23:08:00', 105600, 8, 2, 3, 1
+    UNION ALL SELECT 'ST2015', '2026-08-29 22:00:00', '2026-08-29 23:38:00', 96000, 8, 1, 3, 1
+    UNION ALL SELECT 'ST2016', '2026-08-14 19:00:00', '2026-08-14 20:55:00', 96000, 9, 1, 3, 1
+    UNION ALL SELECT 'ST2017', '2026-08-20 14:00:00', '2026-08-20 15:55:00', 80000, 9, 2, 2, 1
+    UNION ALL SELECT 'ST2018', '2026-08-28 19:30:00', '2026-08-28 21:25:00', 150000, 9, 3, 3, 3
+    UNION ALL SELECT 'ST2019', '2026-08-21 09:00:00', '2026-08-21 10:32:00', 86400, 10, 2, 1, 2
+    UNION ALL SELECT 'ST2020', '2026-08-23 10:00:00', '2026-08-23 11:32:00', 79200, 10, 1, 1, 1
+    UNION ALL SELECT 'ST2021', '2026-08-30 15:00:00', '2026-08-30 16:32:00', 110000, 10, 2, 2, 2
   ) x
   JOIN tblshowdate6 sd ON sd.showdate = DATE(x.t1)
  ORDER BY x.t1;
@@ -554,6 +593,28 @@ CALL sinhHoadon6('ST1120', 10, 20, 1, 1, '2026-08-21 19:30:00');
 -- Ngoai khoang 01/08 - 31/08: khong duoc tinh vao thong ke thang 8
 CALL sinhHoadon6('ST1150', 5, 10, 1, 1, '2026-09-02 08:45:00');
 -- ST1131 khong co hoa don nao: dung de thu ngoai le 10a / 32a
+-- Hoa don cua 21 suat chieu them (7 phim moi)
+CALL sinhHoadon6('ST2001', 12, 30, 101, 1, '2026-08-02 19:00:00');
+CALL sinhHoadon6('ST2002', 9, 22, 131, 1, '2026-08-09 18:00:00');
+CALL sinhHoadon6('ST2003', 6, 15, 161, 1, '2026-08-16 13:30:00');
+CALL sinhHoadon6('ST2004', 8, 18, 191, 1, '2026-08-04 08:00:00');
+CALL sinhHoadon6('ST2005', 10, 25, 221, 1, '2026-08-11 14:00:00');
+CALL sinhHoadon6('ST2006', 12, 28, 251, 1, '2026-08-25 18:30:00');
+CALL sinhHoadon6('ST2007', 10, 24, 281, 1, '2026-08-01 18:00:00');
+CALL sinhHoadon6('ST2008', 8, 18, 311, 1, '2026-08-08 19:30:00');
+CALL sinhHoadon6('ST2009', 8, 20, 341, 1, '2026-08-22 13:00:00');
+CALL sinhHoadon6('ST2010', 5, 12, 371, 1, '2026-08-06 08:30:00');
+CALL sinhHoadon6('ST2011', 7, 16, 401, 1, '2026-08-13 14:30:00');
+CALL sinhHoadon6('ST2012', 8, 20, 431, 1, '2026-08-27 17:30:00');
+CALL sinhHoadon6('ST2013', 11, 26, 461, 1, '2026-08-08 20:00:00');
+CALL sinhHoadon6('ST2014', 12, 30, 491, 1, '2026-08-15 20:30:00');
+CALL sinhHoadon6('ST2015', 6, 14, 521, 1, '2026-08-29 21:00:00');
+CALL sinhHoadon6('ST2016', 14, 35, 551, 1, '2026-08-14 18:00:00');
+CALL sinhHoadon6('ST2017', 4, 10, 581, 1, '2026-08-20 13:00:00');
+CALL sinhHoadon6('ST2018', 8, 18, 611, 1, '2026-08-28 18:30:00');
+CALL sinhHoadon6('ST2019', 9, 22, 641, 1, '2026-08-21 08:00:00');
+CALL sinhHoadon6('ST2020', 11, 26, 671, 1, '2026-08-23 09:00:00');
+CALL sinhHoadon6('ST2021', 12, 30, 701, 1, '2026-08-30 14:00:00');
 
 DROP PROCEDURE taoNgayChieu6;
 DROP PROCEDURE sinhHoadon6;

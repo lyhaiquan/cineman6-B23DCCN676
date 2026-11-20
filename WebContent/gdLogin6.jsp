@@ -19,7 +19,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Đăng nhập thử</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=2">
 </head>
 <body>
 <h2>Trang đăng nhập thử – ngoài phạm vi hai module</h2>

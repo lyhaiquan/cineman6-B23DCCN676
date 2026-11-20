@@ -1,44 +1,113 @@
-/* CineMan 6 - CSS toi gian: chi bo cuc, khong mau nen, khong hieu ung. */
+/* CineMan 6 - CSS gon nhe: can giua, khung trang, bang de doc. */
 body {
 	font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 	font-size: 15px;
 	line-height: 1.5;
-	margin: 24px;
-	max-width: 960px;
+	color: #222;
+	background: #f4f5f7;
+	margin: 0;
+	padding: 32px 16px;
+}
+
+/* moi trang la mot khung trang o giua man hinh */
+body > * {
+	max-width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body > h1:first-child {
+	padding-top: 0;
 }
 
 h1, h2, h3 {
-	margin: 0 0 12px;
+	text-align: center;
+	margin: 0 auto 16px;
 }
 
-table {
-	border-collapse: collapse;
-	margin: 12px 0;
+h1 {
+	font-size: 24px;
+	color: #1f3b63;
+	border-bottom: 2px solid #1f3b63;
+	padding-bottom: 8px;
 }
 
-th, td {
-	border: 1px solid #999;
-	padding: 4px 8px;
-	text-align: left;
+p {
+	text-align: center;
+}
+
+form {
+	background: #fff;
+	border: 1px solid #dde1e6;
+	border-radius: 8px;
+	padding: 20px 24px;
+	box-sizing: border-box;
 }
 
 form p, form div {
-	margin: 8px 0;
+	margin: 10px 0;
 }
 
 label {
 	display: inline-block;
 	min-width: 160px;
+	text-align: right;
+	padding-right: 8px;
 }
 
 input, select, button {
 	font: inherit;
 }
 
+input[type="text"], input[type="email"], input[type="password"], input[type="date"],
+input[type="tel"], select {
+	padding: 5px 8px;
+	border: 1px solid #b8bfc8;
+	border-radius: 4px;
+	min-width: 220px;
+}
+
 button, input[type="submit"], input[type="button"] {
-	margin-right: 8px;
+	padding: 6px 16px;
+	margin: 4px;
+	border: 1px solid #1f3b63;
+	border-radius: 4px;
+	background: #1f3b63;
+	color: #fff;
+	cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+	background: #2d5490;
+}
+
+table {
+	border-collapse: collapse;
+	margin: 16px auto;
+	width: 100%;
+	max-width: 900px;
+	background: #fff;
+}
+
+th, td {
+	border: 1px solid #d0d5db;
+	padding: 6px 10px;
+	text-align: left;
+}
+
+th {
+	background: #e8edf3;
+	text-align: center;
+}
+
+tr:nth-child(even) td {
+	background: #fafbfc;
+}
+
+tr:hover td {
+	background: #eef4fb;
 }
 
 a {
-	color: inherit;
+	color: #1f5fa8;
 }

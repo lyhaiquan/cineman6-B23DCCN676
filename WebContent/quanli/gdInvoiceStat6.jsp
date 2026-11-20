@@ -95,7 +95,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Thống kê hoá đơn bán vé của suất chiếu</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=2">
 </head>
 <body>
 <h2>Thống kê hoá đơn bán vé của suất chiếu</h2>
