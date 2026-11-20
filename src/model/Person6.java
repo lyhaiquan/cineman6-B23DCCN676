@@ -6,8 +6,8 @@ import java.util.Date;
 public abstract class Person6 {
 
 	/*
-	 * Ba gia tri hop le cua status (gia dinh A25), khop kieu
-	 * ENUM('ACTIVE','LOCKED','INACTIVE') cua cot tblperson6.status.
+	 * Ba gia tri hop le cua status (gia dinh A25) luu trong cot
+	 * tblperson6.status VARCHAR(20); thu tuc themKhachhang6 chi nhan ba gia tri nay.
 	 */
 	public static final String STATUS_ACTIVE = "ACTIVE";
 	public static final String STATUS_LOCKED = "LOCKED";
