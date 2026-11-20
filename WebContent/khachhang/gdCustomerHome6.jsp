@@ -22,7 +22,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CineMan — Trang chủ</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=2">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=3">
 </head>
 <body>
 <h1>CineMan — Trang chủ</h1>

@@ -87,3 +87,9 @@ Tắt Tomcat: `& "$tomcat\bin\shutdown.bat"`. Sửa JSP, CSS thì chỉ cần ch
 ## Ngoài phạm vi
 
 Đăng nhập thật, đăng xuất, thống kê khách hàng và thống kê doanh thu toàn rạp không thuộc hai module này. Ở giao diện chọn loại thống kê, chọn hai loại đó thì trang giữ nguyên.
+
+## Prompt, mã PlantUML và hình
+
+- [`docs/prompts.md`](docs/prompts.md): các phiên bản prompt đã dùng khi làm bài (tách từ phụ lục của báo cáo).
+- [`docs/plantuml/`](docs/plantuml/): mã nguồn PlantUML phác thảo các hình; hình nộp chính thức vẽ bằng Visual Paradigm.
+- Toàn bộ 24 hình của báo cáo: https://drive.google.com/drive/folders/1Jp_1C1xS27GbtHAkURPtVxn_4jmFpJuy

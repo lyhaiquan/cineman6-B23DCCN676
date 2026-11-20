@@ -111,3 +111,29 @@ tr:hover td {
 a {
 	color: #1f5fa8;
 }
+
+/* outError: khung bao loi do nhat, an khi khong co loi */
+#outError {
+	display: block;
+	min-width: 0;
+	margin: 12px auto;
+	padding: 8px 12px;
+	text-align: center;
+	color: #b42318;
+	background: #fdecea;
+	border: 1px solid #f5c2c0;
+	border-radius: 4px;
+	font-weight: 500;
+}
+
+#outError:empty {
+	display: none;
+}
+
+/* o nhap bi sai (dat boi baoLoi trong gdRegisterMember6.jsp) */
+input.loi {
+	border-color: #d92d20;
+	background: #fff5f5;
+	outline: none;
+	box-shadow: 0 0 0 2px #f5c2c0;
+}

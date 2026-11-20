@@ -1,0 +1,64 @@
+@startuml H18_seq_tk_module1
+' Hinh 18 - Bieu do tuan tu thiet ke modul dang ki thanh vien - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam sequence {
+  ParticipantBackgroundColor #FDFDFD
+  ParticipantBorderColor #444444
+  ActorBackgroundColor #FDFDFD
+  ActorBorderColor #444444
+  LifeLineBorderColor #888888
+}
+skinparam boundary {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam control {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam entity {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+hide footbox
+autonumber
+actor "Customer 6" as U
+boundary "gdCustomerHome6.jsp" as P1
+boundary "gdRegisterMember6.jsp" as P2
+boundary "doRegister6.jsp" as P3
+boundary "gdRegisterResult6.jsp" as P4
+control "CustomerDAO6" as D1
+control "MembershipRankDAO6" as D2
+entity "Customer6" as E1
+entity "MembershipRank6" as E2
+U -> P1 : click Đăng kí thành viên
+P1 -> P2 : gọi
+P2 --> U : hiển thị
+U -> P2 : nhập thông tin, click Đăng kí
+P2 -> P2 : kiểm tra định dạng
+P2 -> P3 : gọi
+P3 -> D1 : gọi
+D1 -> D1 : checkExistedAccount(phone, email)
+D1 --> P3 : trả về: chưa tồn tại
+P3 -> D2 : gọi
+D2 -> D2 : getDefaultRank()
+D2 -> E2 : gọi
+E2 -> E2 : MembershipRank6()
+E2 --> D2 : trả về
+D2 --> P3 : trả về: hạng "Thường"
+P3 -> E1 : gọi
+E1 -> E1 : Customer6()
+E1 --> P3 : trả về
+P3 -> D1 : gọi
+D1 -> D1 : addCustomer(cus)
+D1 --> P3 : trả về: mã thành viên
+P3 -> P4 : gọi
+P4 --> U : hiển thị
+U -> P4 : click Về trang chủ
+P4 -> P1 : gọi
+P1 --> U : hiển thị
+@enduml

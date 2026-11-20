@@ -1,0 +1,218 @@
+@startuml H4_class_thucthe
+' Hinh 4 - Bieu do lop thuc the pha phan tich - CineMan - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam class {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam nodesep 25
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+abstract class Person6 {
+username
+password
+dateOfBirth
+phone
+email
+status
+note
+}
+class FullName6 {
+firstName
+middleName
+lastName
+}
+class Address6 {
+street
+ward
+district
+city
+}
+abstract class Employee6 {
+employeeCode
+position
+hireDate
+}
+class Manager6 {
+managementLevel
+}
+class Salesperson6 {
+counterCode
+workShift
+}
+class Customer6 {
+customerCode
+registeredDate
+points
+}
+class CustomerStatistic6 {
+startDate
+endDate
+totalInvoices
+totalTickets
+totalSpent
+}
+class MembershipRank6 {
+name
+minPoints
+discountRate
+description
+}
+class MembershipCard6 {
+cardNo
+issuedDate
+expiryDate
+status
+}
+class Cinema6 {
+name
+hotline
+description
+}
+class RevenueStatistic6 {
+startDate
+endDate
+totalInvoices
+totalTickets
+totalRevenue
+}
+class ScreeningRoom6 {
+name
+capacity
+description
+}
+class Seat6 {
+rowLabel
+seatNumber
+description
+}
+class SeatType6 {
+name
+priceFactor
+description
+}
+class Movie6 {
+title
+director
+mainActors
+duration
+releaseDate
+ageRating
+synopsis
+status
+}
+class MovieStatistic6 {
+startDate
+endDate
+totalShowtimes
+totalTicketsSold
+totalRevenue
+}
+class Genre6 {
+name
+description
+}
+class MovieGenre6 {
+isMainGenre
+}
+class ShowDate6 {
+showDate
+dayOfWeek
+isHoliday
+priceFactor
+}
+class TimeSlot6 {
+name
+startHour
+endHour
+priceFactor
+}
+class ShowFormat6 {
+name
+priceFactor
+description
+}
+class Showtime6 {
+showtimeCode
+startTime
+endTime
+basePrice
+status
+}
+class ShowtimeStatistic6 {
+totalInvoices
+totalTicketsSold
+occupancyRate
+revenue
+}
+class Ticket6 {
+ticketCode
+price
+status
+issuedAt
+}
+class Invoice6 {
+invoiceNo
+createdAt
+totalAmount
+discountAmount
+finalAmount
+status
+}
+class InvoiceStatistic6 {
+ticketCount
+revenue
+}
+class SalesChannel6 {
+name
+description
+}
+class PaymentMethod6 {
+name
+description
+}
+' ===== Ke thua =====
+Person6 <|-- Employee6
+Person6 <|-- Customer6
+Employee6 <|-- Manager6
+Employee6 <|-- Salesperson6
+Customer6 <|-- CustomerStatistic6
+Cinema6 <|-- RevenueStatistic6
+Movie6 <|-- MovieStatistic6
+Showtime6 <|-- ShowtimeStatistic6
+Invoice6 <|-- InvoiceStatistic6
+' ===== Hop thanh: ho ten, dia chi (giong Hoten, Diachi o Hinh 3.5) =====
+Person6 "1" o-- "1" FullName6
+Person6 "1" o-- "1" Address6
+Cinema6 "1" o-- "1" Address6
+' ===== Gan chat (composition) =====
+Cinema6 "1" *-- "n" ScreeningRoom6
+ScreeningRoom6 "1" *-- "n" Seat6
+Invoice6 "1" *-- "n" Ticket6
+' ===== Hop thanh: lop chua (co hinh thoi) la lop tong the =====
+MovieGenre6 "n" o-- "1" Movie6
+MovieGenre6 "n" o-- "1" Genre6
+Showtime6 "n" o-- "1" Movie6
+Showtime6 "n" o-- "1" ScreeningRoom6
+Showtime6 "n" o-- "1" ShowDate6
+Showtime6 "n" o-- "1" TimeSlot6
+Showtime6 "n" o-- "1" ShowFormat6
+Ticket6 "n" o-- "1" Showtime6
+Ticket6 "n" o-- "1" Seat6
+Seat6 "n" o-- "1" SeatType6
+' ===== Lien ket (association) =====
+MembershipRank6 "1" -- "n" Customer6
+Customer6 "1" -- "n" MembershipCard6
+Salesperson6 "1" -- "n" MembershipCard6
+Showtime6 "1" -- "n" Invoice6
+Customer6 "0..1" -- "n" Invoice6
+Salesperson6 "0..1" -- "n" Invoice6
+SalesChannel6 "1" -- "n" Invoice6
+PaymentMethod6 "1" -- "n" Invoice6
+@enduml

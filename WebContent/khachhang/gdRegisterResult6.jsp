@@ -29,7 +29,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Đăng kí thành viên thành công</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=2">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=3">
 </head>
 <body>
 <%-- buoc 23: hien thi ket qua dang ki cho khach hang (Bang 2) --%>

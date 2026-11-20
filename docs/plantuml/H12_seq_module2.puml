@@ -1,0 +1,61 @@
+@startuml H12_seq_module2
+' Hinh 12 - Bieu do tuan tu pha phan tich module 2: xem thong ke phim theo doanh thu - B23DCCN676
+' Chuyen hoa tu Hinh 10: cung cac lop, cung so thu tu thong diep voi kich ban v.2.
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam sequence {
+  ParticipantBackgroundColor #FDFDFD
+  ParticipantBorderColor #444444
+  ActorBackgroundColor #FDFDFD
+  ActorBorderColor #444444
+  LifeLineBorderColor #888888
+}
+skinparam boundary {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam entity {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+hide footbox
+autonumber
+
+actor "Manager 6" as U
+boundary "ManagerHomeView6" as V1
+boundary "SelectReportView6" as V2
+boundary "MovieRevenueStatView6" as V3
+entity "MovieStatistic6" as E1
+boundary "ShowtimeStatView6" as V4
+entity "ShowtimeStatistic6" as E2
+boundary "InvoiceStatView6" as V5
+entity "InvoiceStatistic6" as E3
+
+U -> V1 : click Xem báo cáo
+V1 -> V2 : gọi
+V2 --> U : hiển thị danh sách loại thống kê
+U -> V2 : chọn TK phim theo doanh thu, click Tiếp tục
+V2 -> V3 : gọi
+V3 --> U : hiển thị ô ngày, bảng rỗng
+U -> V3 : chọn 01/08/2026 - 31/08/2026, click Xem thống kê
+V3 -> V3 : kiểm tra ngày
+V3 -> E1 : gọi (startDate, endDate)
+E1 -> E1 : getMovieRevenueStat()
+E1 --> V3 : trả về danh sách MovieStatistic6
+V3 --> U : hiển thị bảng thống kê phim
+U -> V3 : click phim "Mắt Biếc 2"
+V3 -> V4 : gọi (phim, khoảng thời gian)
+V4 -> E2 : gọi
+E2 -> E2 : getShowtimeStatOfMovie()
+E2 --> V4 : trả về danh sách ShowtimeStatistic6
+V4 --> U : hiển thị bảng thống kê suất chiếu
+U -> V4 : click suất chiếu ST1042
+V4 -> V5 : gọi (suất chiếu)
+V5 -> E3 : gọi
+E3 -> E3 : getInvoiceStatOfShowtime()
+E3 --> V5 : trả về danh sách InvoiceStatistic6
+V5 --> U : hiển thị bảng thống kê hóa đơn
+@enduml

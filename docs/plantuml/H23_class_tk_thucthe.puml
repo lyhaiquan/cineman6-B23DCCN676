@@ -1,0 +1,248 @@
+@startuml H23_class_tk_thucthe
+skinparam class {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+hide circle
+hide empty methods
+abstract class Person6 {
+-id : integer
+-username : String
+-password : String
+-dateOfBirth : Date
+-phone : String
+-email : String
+-status : String
+-note : String
+-fullName : FullName6
+-address : Address6
+}
+class FullName6 {
+-id : integer
+-firstName : String
+-middleName : String
+-lastName : String
+}
+class Address6 {
+-id : integer
+-street : String
+-ward : String
+-district : String
+-city : String
+}
+abstract class Employee6 {
+-employeeCode : String
+-position : String
+-hireDate : Date
+}
+class Manager6 {
+-managementLevel : String
+}
+class Salesperson6 {
+-counterCode : String
+-workShift : String
+}
+class Customer6 {
+-customerCode : String
+-registeredDate : Date
+-points : integer
+-rank : MembershipRank6
+}
+class CustomerStatistic6 {
+-startDate : Date
+-endDate : Date
+-totalInvoices : integer
+-totalTickets : integer
+-totalSpent : long
+}
+class MembershipRank6 {
+-id : integer
+-name : String
+-minPoints : integer
+-discountRate : float
+-description : String
+}
+class MembershipCard6 {
+-id : integer
+-cardNo : String
+-issuedDate : Date
+-expiryDate : Date
+-status : String
+-customer : Customer6
+-salesperson : Salesperson6
+}
+class Cinema6 {
+-id : integer
+-name : String
+-hotline : String
+-description : String
+-address : Address6
+-listRoom : ScreeningRoom6[]
+}
+class RevenueStatistic6 {
+-startDate : Date
+-endDate : Date
+-totalInvoices : integer
+-totalTickets : integer
+-totalRevenue : long
+}
+class ScreeningRoom6 {
+-id : integer
+-name : String
+-capacity : integer
+-description : String
+-listSeat : Seat6[]
+}
+class Seat6 {
+-id : integer
+-rowLabel : String
+-seatNumber : integer
+-description : String
+-seatType : SeatType6
+}
+class SeatType6 {
+-id : integer
+-name : String
+-priceFactor : float
+-description : String
+}
+class Movie6 {
+-id : integer
+-title : String
+-director : String
+-mainActors : String
+-duration : integer
+-releaseDate : Date
+-ageRating : String
+-synopsis : String
+-status : String
+}
+class MovieStatistic6 {
+-startDate : Date
+-endDate : Date
+-totalShowtimes : integer
+-totalTicketsSold : integer
+-totalRevenue : long
+}
+class Genre6 {
+-id : integer
+-name : String
+-description : String
+}
+class MovieGenre6 {
+-id : integer
+-isMainGenre : boolean
+-movie : Movie6
+-genre : Genre6
+}
+class ShowDate6 {
+-id : integer
+-showDate : Date
+-dayOfWeek : String
+-isHoliday : boolean
+-priceFactor : float
+}
+class TimeSlot6 {
+-id : integer
+-name : String
+-startHour : integer
+-endHour : integer
+-priceFactor : float
+}
+class ShowFormat6 {
+-id : integer
+-name : String
+-priceFactor : float
+-description : String
+}
+class Showtime6 {
+-id : integer
+-showtimeCode : String
+-startTime : Date
+-endTime : Date
+-basePrice : long
+-status : String
+-movie : Movie6
+-room : ScreeningRoom6
+-showDate : ShowDate6
+-timeSlot : TimeSlot6
+-format : ShowFormat6
+}
+class ShowtimeStatistic6 {
+-totalInvoices : integer
+-totalTicketsSold : integer
+-occupancyRate : float
+-revenue : long
+}
+class Ticket6 {
+-id : integer
+-ticketCode : String
+-price : long
+-status : String
+-issuedAt : Date
+-showtime : Showtime6
+-seat : Seat6
+}
+class Invoice6 {
+-id : integer
+-invoiceNo : String
+-createdAt : Date
+-totalAmount : long
+-discountAmount : long
+-finalAmount : long
+-status : String
+-showtime : Showtime6
+-channel : SalesChannel6
+-paymentMethod : PaymentMethod6
+-customer : Customer6
+-salesperson : Salesperson6
+-listTicket : Ticket6[]
+}
+class InvoiceStatistic6 {
+-ticketCount : integer
+-revenue : long
+}
+class SalesChannel6 {
+-id : integer
+-name : String
+-description : String
+}
+class PaymentMethod6 {
+-id : integer
+-name : String
+-description : String
+}
+Person6 <|-- Employee6
+Employee6 <|-- Manager6
+Employee6 <|-- Salesperson6
+Person6 <|-- Customer6
+Customer6 <|-- CustomerStatistic6
+Cinema6 <|-- RevenueStatistic6
+Movie6 <|-- MovieStatistic6
+Showtime6 <|-left- ShowtimeStatistic6
+Invoice6 <|-left- InvoiceStatistic6
+Person6 "1" o-- "1" FullName6
+Person6 "1" o-- "1" Address6
+Cinema6 "1" o-- "1" Address6
+Cinema6 "1" *-- "n" ScreeningRoom6
+ScreeningRoom6 "1" *-- "n" Seat6
+Invoice6 "1" *-- "n" Ticket6
+MovieGenre6 "n" o-- "1" Movie6
+MovieGenre6 "n" o-- "1" Genre6
+Showtime6 "n" o-- "1" Movie6
+Showtime6 "n" o-- "1" ScreeningRoom6
+Showtime6 "n" o-- "1" ShowDate6
+Showtime6 "n" o-- "1" TimeSlot6
+Showtime6 "n" o-- "1" ShowFormat6
+Ticket6 "n" o-- "1" Showtime6
+Ticket6 "n" o-- "1" Seat6
+Seat6 "n" o-- "1" SeatType6
+MembershipRank6 "1" -- "n" Customer6
+Customer6 "1" -- "n" MembershipCard6
+Salesperson6 "1" -- "n" MembershipCard6
+Showtime6 "1" -- "n" Invoice6
+Customer6 "0..1" -- "n" Invoice6
+Salesperson6 "0..1" -- "n" Invoice6
+SalesChannel6 "1" -- "n" Invoice6
+PaymentMethod6 "1" -- "n" Invoice6
+@enduml

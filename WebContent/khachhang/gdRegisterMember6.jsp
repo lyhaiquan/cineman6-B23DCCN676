@@ -33,7 +33,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Đăng kí thành viên</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=2">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=3">
 <script type="text/javascript">
 var daHuy = false;   // true khi khach hang click subCancel
 
@@ -67,12 +67,21 @@ function kiemtraDinhdang() {
 	if (tuoi(f["inDateOfBirth"].value) < 13) {
 		return baoLoi(f["inDateOfBirth"], "Khách hàng dưới 13 tuổi không thể tự đăng kí thành viên");
 	}
+	boLoi();
 	document.getElementById("outError").innerHTML = "";
 	return true;   // buoc 6: submit goi doRegister6.jsp
 }
 
+// xoa to do cua lan bao loi truoc
+function boLoi() {
+	var ds = document.querySelectorAll("input.loi");
+	for (var i = 0; i < ds.length; i++) { ds[i].className = ""; }
+}
+
 // ngoai le 5a: dat noi dung outError, dung lai, khong goi doRegister6.jsp
 function baoLoi(o, thongBao) {
+	boLoi();
+	o.className = "loi";   // to do o bi sai
 	document.getElementById("outError").innerHTML = thongBao;
 	o.focus();
 	return false;
@@ -108,7 +117,7 @@ function tuoi(ngaySinh) {
 		<input type="password" id="inPassword" name="inPassword"></p>
 	<p><label for="inConfirmPassword">Nhập lại mật khẩu (*)</label>
 		<input type="password" id="inConfirmPassword" name="inConfirmPassword"></p>
-	<p><label id="outError"><%=outError%></label></p>
+	<label id="outError"><%=outError%></label>
 	<p>
 		<input type="submit" id="subRegister" name="subRegister" value="Đăng kí" onclick="daHuy = false;">
 		<input type="submit" id="subCancel" name="subCancel" value="Huỷ" onclick="daHuy = true;"

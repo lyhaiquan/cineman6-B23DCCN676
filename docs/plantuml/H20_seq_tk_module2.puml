@@ -1,0 +1,74 @@
+@startuml H20_seq_tk_module2
+' Hinh 20 - Bieu do tuan tu thiet ke modul xem thong ke - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam sequence {
+  ParticipantBackgroundColor #FDFDFD
+  ParticipantBorderColor #444444
+  ActorBackgroundColor #FDFDFD
+  ActorBorderColor #444444
+  LifeLineBorderColor #888888
+}
+skinparam boundary {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam control {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam entity {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+hide footbox
+autonumber
+actor "Manager 6" as U
+boundary "gdManagerHome6.jsp" as P1
+boundary "gdSelectReport6.jsp" as P2
+boundary "gdMovieRevenueStat6.jsp" as P3
+boundary "gdShowtimeStat6.jsp" as P4
+boundary "gdInvoiceStat6.jsp" as P5
+control "MovieStatisticDAO6" as D1
+control "ShowtimeStatisticDAO6" as D2
+control "InvoiceStatisticDAO6" as D3
+entity "MovieStatistic6" as E1
+entity "ShowtimeStatistic6" as E2
+entity "InvoiceStatistic6" as E3
+U -> P1 : click Xem báo cáo
+P1 -> P2 : gọi
+P2 --> U : hiển thị
+U -> P2 : chọn TK phim theo doanh thu, click Tiếp tục
+P2 -> P3 : gọi
+P3 --> U : hiển thị ô chọn ngày
+U -> P3 : chọn ngày, click Xem thống kê
+P3 -> P3 : kiểm tra khoảng ngày
+P3 -> D1 : gọi (startDate, endDate)
+D1 -> D1 : getMovieRevenueStat(startDate, endDate)
+D1 -> E1 : gọi
+E1 -> E1 : MovieStatistic6()
+E1 --> D1 : trả về
+D1 --> P3 : trả về danh sách MovieStatistic6
+P3 --> U : hiển thị bảng thống kê phim
+U -> P3 : click 1 phim
+P3 -> P4 : gọi (idMovie)
+P4 -> D2 : gọi (idMovie, startDate, endDate)
+D2 -> D2 : getShowtimeStatOfMovie(idMovie, startDate, endDate)
+D2 -> E2 : gọi
+E2 -> E2 : ShowtimeStatistic6()
+E2 --> D2 : trả về
+D2 --> P4 : trả về danh sách ShowtimeStatistic6
+P4 --> U : hiển thị bảng thống kê suất chiếu
+U -> P4 : click 1 suất chiếu
+P4 -> P5 : gọi (idShowtime)
+P5 -> D3 : gọi (idShowtime)
+D3 -> D3 : getInvoiceStatOfShowtime(idShowtime)
+D3 -> E3 : gọi
+E3 -> E3 : InvoiceStatistic6()
+E3 --> D3 : trả về
+D3 --> P5 : trả về danh sách InvoiceStatistic6
+P5 --> U : hiển thị bảng thống kê hoá đơn
+@enduml

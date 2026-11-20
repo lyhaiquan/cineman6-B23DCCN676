@@ -1,0 +1,127 @@
+@startuml H15_class_tk_module1
+' Hinh 15 - Bieu do lop thiet ke modul dang ki thanh vien - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam class {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam classAttributeIconSize 0
+skinparam nodesep 40
+skinparam ranksep 55
+hide circle
+hide empty methods
+
+' ===================== Tang giao dien (JSP) =====================
+class "gdCustomerHome6.jsp" as GDCH {
+-subRegister : link
+-cus : Customer6
+}
+class "gdRegisterMember6.jsp" as GDRM {
+-inFullName : Text
+-inDateOfBirth : Date
+-inPhone : Text
+-inEmail : Text
+-inAddress : Text
+-inPassword : Password
+-inConfirmPassword : Password
+-subRegister : submit
+-subCancel : submit
+-outError : Label
+-cus : Customer6
+}
+class "doRegister6.jsp" as DORG {
+-cus : Customer6
+-rank : MembershipRank6
+-existed : boolean
+-newId : integer
+}
+class "gdRegisterResult6.jsp" as GDRR {
+-outMemberInfo : Label
+-outGuide : Label
+-subHome : submit
+-cus : Customer6
+}
+
+' ===================== Tang truy xuat du lieu (DAO) =====================
+abstract class DAO6 {
+#con : Connection
++DAO6()
+}
+class CustomerDAO6 {
++CustomerDAO6()
++checkExistedAccount(phone : String, email : String) : boolean
++addCustomer(cus : Customer6) : integer
+}
+class MembershipRankDAO6 {
++MembershipRankDAO6()
++getDefaultRank() : MembershipRank6
+}
+
+' ===================== Tang thuc the =====================
+abstract class Person6 {
+-id : integer
+-username : String
+-password : String
+-dateOfBirth : Date
+-phone : String
+-email : String
+-status : String
+-note : String
+-fullName : FullName6
+-address : Address6
+}
+class Customer6 {
+-customerCode : String
+-registeredDate : Date
+-points : integer
+-rank : MembershipRank6
+}
+class FullName6 {
+-id : integer
+-firstName : String
+-middleName : String
+-lastName : String
+}
+class Address6 {
+-id : integer
+-street : String
+-ward : String
+-district : String
+-city : String
+}
+class MembershipRank6 {
+-id : integer
+-name : String
+-minPoints : integer
+-discountRate : float
+-description : String
+}
+
+' ===================== Quan he giua cac lop giao dien =====================
+GDCH -right- GDRM
+GDRM -right- DORG
+DORG -right- GDRR
+GDRR -[norank]-> GDCH
+
+' ===================== Giao dien goi DAO =====================
+DORG -down-> CustomerDAO6
+DORG -down-> MembershipRankDAO6
+
+' ===================== Ke thua DAO =====================
+CustomerDAO6 -left-|> DAO6
+MembershipRankDAO6 -left-|> DAO6
+
+' ===================== DAO thao tac tren thuc the =====================
+CustomerDAO6 -[norank]- Customer6
+MembershipRankDAO6 -[norank]- MembershipRank6
+
+' ===================== Quan he thuc the (giu nguyen nhu Hinh 4) =====================
+Person6 <|-- Customer6
+Person6 "1" o-- "1" FullName6
+Person6 "1" o-- "1" Address6
+MembershipRank6 "1" -- "n" Customer6
+@enduml

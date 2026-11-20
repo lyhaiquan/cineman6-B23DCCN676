@@ -1,0 +1,59 @@
+@startuml H10_comm_module2
+' Hinh 10 - Bieu do giao tiep module 2: xem thong ke phim theo doanh thu - B23DCCN676 - De 16
+' So thu tu thong diep = so buoc trong kich ban v.2 (muc 10.3).
+' Tac nhan o tren cung, cac lop bien xep bac thang theo thu tu hien thi,
+' lop thuc the nam duoi lop bien goi no: "xuong" la di xuong, "len" la tra nguoc len.
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam actor {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam boundary {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam entity {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam nodesep 55
+skinparam ranksep 55
+
+actor "Manager 6" as U
+boundary "ManagerHomeView6" as V1
+boundary "SelectReportView6" as V2
+boundary "MovieRevenueStatView6" as V3
+boundary "ShowtimeStatView6" as V4
+boundary "InvoiceStatView6" as V5
+entity "MovieStatistic6" as E1
+entity "ShowtimeStatistic6" as E2
+entity "InvoiceStatistic6" as E3
+
+' --- Tac nhan <-> lop bien ---
+U -down- V1 : "1: click Xem báo cáo ↓"
+U -down- V2 : "3: hiển thị ↑\n4: chọn TK phim theo doanh thu,\nclick Tiếp tục ↓"
+U -down- V3 : "6: hiển thị ↑\n7: chọn ngày, click Xem thống kê ↓\n12: hiển thị ↑\n13: click 1 phim ↓"
+U -down- V4 : "18: hiển thị ↑\n19: click 1 suất chiếu ↓"
+U -down- V5 : "24: hiển thị ↑"
+
+' --- Lop bien <-> lop bien (dong bo voi Hinh 6) ---
+V1 -down- V2 : "2: gọi ↓"
+V2 -down- V3 : "5: gọi ↓"
+V3 -down- V4 : "14: gọi ↓"
+V4 -down- V5 : "20: gọi ↓"
+
+' --- Lop bien <-> lop thuc the ---
+V3 -down- E1 : "9: gọi ↓\n11: trả về ↑"
+V4 -down- E2 : "15: gọi ↓\n17: trả về ↑"
+V5 -down- E3 : "21: gọi ↓\n23: trả về ↑"
+
+' --- Hanh dong cua chinh mot lop ---
+V3 -- V3 : "8: kiểm tra ngày"
+E1 -- E1 : "10: getMovieRevenueStat()"
+E2 -- E2 : "16: getShowtimeStatOfMovie()"
+E3 -- E3 : "22: getInvoiceStatOfShowtime()"
+@enduml

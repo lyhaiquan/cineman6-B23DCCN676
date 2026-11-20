@@ -1,0 +1,51 @@
+@startuml H9_comm_module1
+' Hinh 9 - Bieu do giao tiep module 1: Register Membership 6 - B23DCCN676 - De 16
+' So thu tu thong diep = so buoc trong kich ban v.2 (muc 10.2).
+' Mui ten canh nhan chi chieu thong diep: tac nhan o tren cung, lop bien o giua,
+' lop thuc the o duoi, nen "xuong" la di tu tren xuong, "len" la tra nguoc len.
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam actor {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam boundary {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam entity {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam nodesep 70
+skinparam ranksep 70
+
+actor "Customer 6" as U
+boundary "CustomerHomeView6" as V1
+boundary "RegisterMemberView6" as V2
+entity "Customer6" as E1
+entity "MembershipRank6" as E2
+boundary "RegisterResultView6" as V3
+
+' --- Tac nhan <-> lop bien ---
+U -down- V1 : "1: click Đăng kí thành viên ↓\n19: hiển thị ↑"
+U -down- V2 : "3: hiển thị ↑\n4: nhập thông tin, click Đăng kí ↓"
+U -down- V3 : "16: hiển thị ↑\n17: click Về trang chủ ↓"
+
+' --- Lop bien <-> lop bien (dong bo voi Hinh 5) ---
+V1 -down- V2 : "2: gọi ↓"
+V2 -down- V3 : "15: gọi ↓"
+V1 -down- V3 : "18: gọi ↑"
+
+' --- Lop bien <-> lop thuc the ---
+V2 -down- E1 : "6: gọi ↓\n8: trả về ↑\n12: gọi ↓\n14: trả về ↑"
+V2 -down- E2 : "9: gọi ↓\n11: trả về ↑"
+
+' --- Hanh dong cua chinh mot lop ---
+V2 -- V2 : "5: kiểm tra định dạng"
+E1 -- E1 : "7: checkExistedAccount()\n13: addCustomer()"
+E2 -- E2 : "10: getDefaultRank()"
+@enduml

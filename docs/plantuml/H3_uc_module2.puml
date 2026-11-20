@@ -1,0 +1,41 @@
+@startuml H3_uc_module2
+' Hinh 3 - Use case chi tiet module 2: xem thong ke phim theo doanh thu - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam usecase {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam actor {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Person 6" as Person
+actor "Employee 6" as Employee
+actor "Manager 6" as Manager
+Employee -up-|> Person
+Manager -up-|> Employee
+
+rectangle "Module xem thống kê phim theo doanh thu" {
+  usecase "Login 6" as L
+  usecase "Manager Login 6" as ML
+  usecase "View Statistics 6" as M
+  usecase "View Movie Revenue\nStatistics 6" as E1
+  usecase "View Showtime Statistics\nOf Movie 6" as E2
+  usecase "View Invoice Statistics\nOf Showtime 6" as E3
+}
+
+Person -- L
+ML -|> L
+Manager -- M
+M ..> ML : <<include>>
+E1 .> M : <<extend>>
+E2 .> E1 : <<extend>>
+E3 .> E2 : <<extend>>
+@enduml

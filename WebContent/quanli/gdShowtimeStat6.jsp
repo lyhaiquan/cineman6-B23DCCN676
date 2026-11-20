@@ -96,7 +96,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Thống kê suất chiếu của phim</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=2">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/cineman6.css?v=3">
 </head>
 <body>
 <h2>Thống kê suất chiếu của phim</h2>

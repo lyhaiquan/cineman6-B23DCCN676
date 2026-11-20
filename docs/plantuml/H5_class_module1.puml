@@ -1,0 +1,82 @@
+@startuml H5_class_module1
+' Hinh 5 - Bieu do lop phan tich module 1: Register Membership 6 - B23DCCN676
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam class {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam classAttributeIconSize 0
+skinparam nodesep 45
+skinparam ranksep 60
+hide circle
+hide empty methods
+class CustomerHomeView6 {
+-subRegister
+}
+class RegisterMemberView6 {
+-inFullName
+-inDateOfBirth
+-inPhone
+-inEmail
+-inAddress
+-inPassword
+-inConfirmPassword
+-subRegister
+-subCancel
+}
+class RegisterResultView6 {
+-outMemberInfo
+-outGuide
+-subHome
+}
+abstract class Person6 {
+-username
+-password
+-dateOfBirth
+-phone
+-email
+-status
+-note
+}
+class FullName6 {
+-firstName
+-middleName
+-lastName
+}
+class Address6 {
+-street
+-ward
+-district
+-city
+}
+class Customer6 {
+-customerCode
+-registeredDate
+-points
++checkExistedAccount()
++addCustomer()
+}
+class MembershipRank6 {
+-name
+-minPoints
+-discountRate
+-description
++getDefaultRank()
+}
+' ===== Lop bien =====
+CustomerHomeView6 - RegisterMemberView6
+RegisterMemberView6 - RegisterResultView6
+RegisterMemberView6 -- Customer6
+RegisterMemberView6 -- MembershipRank6
+RegisterResultView6 -- Customer6
+RegisterResultView6 -- CustomerHomeView6
+' ===== Thuc the (dong bo voi Hinh 9) =====
+Person6 <|-- Customer6
+Person6 "1" o-- "1" FullName6
+Person6 "1" o-- "1" Address6
+MembershipRank6 "1" -- "n" Customer6
+@enduml

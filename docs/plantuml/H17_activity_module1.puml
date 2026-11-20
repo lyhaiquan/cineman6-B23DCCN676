@@ -1,0 +1,55 @@
+@startuml H17_activity_module1
+' Hinh 17 - Bieu do hoat dong thiet ke modul dang ki thanh vien - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam activity {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+  DiamondBackgroundColor #FDFDFD
+  DiamondBorderColor #444444
+}
+skinparam partition {
+  BorderColor #888888
+  FontStyle bold
+}
+|gdCustomerHome6.jsp|
+start
+:Hiển thị GD trang chủ khách hàng;
+|gdRegisterMember6.jsp|
+:Hiển thị biểu mẫu đăng kí;
+:Nhận thông tin khách hàng nhập;
+if (Định dạng các ô bắt buộc hợp lệ?) then ([sai - ngoại lệ 5a])
+  :Đặt outError, hiển thị lại biểu mẫu;
+  stop
+else ([đúng])
+endif
+|doRegister6.jsp|
+:Gọi CustomerDAO6: checkExistedAccount(phone, email);
+if (SĐT hoặc email đã tồn tại?) then ([có - ngoại lệ 9a])
+  |gdRegisterMember6.jsp|
+  :Đặt outError, hiển thị lại biểu mẫu;
+  stop
+else ([chưa])
+  |doRegister6.jsp|
+endif
+:Gọi MembershipRankDAO6: getDefaultRank();
+:Đóng gói đối tượng Customer6
+(FullName6, Address6, hạng mặc định);
+:Gọi CustomerDAO6: addCustomer(cus);
+if (Lưu thành công?) then ([không - ngoại lệ 21a])
+  |gdRegisterMember6.jsp|
+  :Báo lỗi hệ thống, hiển thị lại biểu mẫu;
+  stop
+else ([có])
+  |doRegister6.jsp|
+endif
+|gdRegisterResult6.jsp|
+:Hiển thị kết quả đăng kí;
+:Nhận click Về trang chủ;
+|gdCustomerHome6.jsp|
+:Hiển thị lại GD trang chủ;
+stop
+@enduml

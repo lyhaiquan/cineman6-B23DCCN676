@@ -1,0 +1,53 @@
+@startuml H11_seq_module1
+' Hinh 11 - Bieu do tuan tu pha phan tich module 1: Register Membership 6 - B23DCCN676
+' Chuyen hoa tu Hinh 9: cung cac lop, cung so thu tu thong diep voi kich ban v.2.
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam sequence {
+  ParticipantBackgroundColor #FDFDFD
+  ParticipantBorderColor #444444
+  ActorBackgroundColor #FDFDFD
+  ActorBorderColor #444444
+  LifeLineBorderColor #888888
+}
+skinparam boundary {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam entity {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+hide footbox
+autonumber
+
+actor "Customer 6" as U
+boundary "CustomerHomeView6" as V1
+boundary "RegisterMemberView6" as V2
+boundary "RegisterResultView6" as V3
+entity "Customer6" as E1
+entity "MembershipRank6" as E2
+
+U -> V1 : click Đăng kí thành viên
+V1 -> V2 : gọi
+V2 --> U : hiển thị biểu mẫu đăng kí
+U -> V2 : nhập thông tin, click Đăng kí
+V2 -> V2 : kiểm tra định dạng
+V2 -> E1 : gọi (kiểm tra SĐT, email)
+E1 -> E1 : checkExistedAccount()
+E1 --> V2 : trả về: chưa tồn tại
+V2 -> E2 : gọi (lấy hạng mặc định)
+E2 -> E2 : getDefaultRank()
+E2 --> V2 : trả về: hạng "Thường"
+V2 -> E1 : gọi (lưu khách hàng mới)
+E1 -> E1 : addCustomer()
+E1 --> V2 : trả về: thành công, mã thành viên
+V2 -> V3 : gọi
+V3 --> U : hiển thị kết quả đăng kí
+U -> V3 : click Về trang chủ
+V3 -> V1 : gọi
+V1 --> U : hiển thị trang chủ
+@enduml

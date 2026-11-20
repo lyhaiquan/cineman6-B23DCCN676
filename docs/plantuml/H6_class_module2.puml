@@ -1,0 +1,174 @@
+@startuml H6_class_module2
+' Hinh 6 - Bieu do lop phan tich module 2: View Movie Revenue Statistics 6 - B23DCCN676
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam class {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam classAttributeIconSize 0
+skinparam nodesep 70
+skinparam ranksep 50
+hide circle
+hide empty methods
+class ManagerHomeView6 {
+-subViewReport
+}
+class SelectReportView6 {
+-inoutReportType
+-subContinue
+-subBack
+}
+class MovieRevenueStatView6 {
+-inStartDate
+-inEndDate
+-subView
+-outsubMovieStatList
+-subBack
+}
+class ShowtimeStatView6 {
+-outMovieInfo
+-outsubShowtimeStatList
+-subBack
+}
+class InvoiceStatView6 {
+-outShowtimeInfo
+-outInvoiceStatList
+-subBack
+}
+class MovieStatistic6 {
+-startDate
+-endDate
+-totalShowtimes
+-totalTicketsSold
+-totalRevenue
++getMovieRevenueStat()
+}
+class ShowtimeStatistic6 {
+-totalInvoices
+-totalTicketsSold
+-occupancyRate
+-revenue
++getShowtimeStatOfMovie()
+}
+class InvoiceStatistic6 {
+-ticketCount
+-revenue
++getInvoiceStatOfShowtime()
+}
+class Movie6 {
+-title
+-director
+-mainActors
+-duration
+-releaseDate
+-ageRating
+-synopsis
+-status
+}
+class Showtime6 {
+-showtimeCode
+-startTime
+-endTime
+-basePrice
+-status
+}
+class Invoice6 {
+-invoiceNo
+-createdAt
+-totalAmount
+-discountAmount
+-finalAmount
+-status
+}
+class Ticket6 {
+-ticketCode
+-price
+-status
+-issuedAt
+}
+class ScreeningRoom6 {
+-name
+-capacity
+-description
+}
+class ShowDate6 {
+-showDate
+-dayOfWeek
+-isHoliday
+-priceFactor
+}
+class TimeSlot6 {
+-name
+-startHour
+-endHour
+-priceFactor
+}
+class ShowFormat6 {
+-name
+-priceFactor
+-description
+}
+class SalesChannel6 {
+-name
+-description
+}
+abstract class Person6 {
+-username
+-password
+-dateOfBirth
+-phone
+-email
+-status
+-note
+}
+class FullName6 {
+-firstName
+-middleName
+-lastName
+}
+abstract class Employee6 {
+-employeeCode
+-position
+-hireDate
+}
+class Salesperson6 {
+-counterCode
+-workShift
+}
+class Customer6 {
+-customerCode
+-registeredDate
+-points
+}
+' ===== Lop bien =====
+ManagerHomeView6 -right- SelectReportView6
+SelectReportView6 -right- MovieRevenueStatView6
+MovieRevenueStatView6 -right- ShowtimeStatView6
+ShowtimeStatView6 -right- InvoiceStatView6
+MovieRevenueStatView6 -down- MovieStatistic6
+ShowtimeStatView6 -down- ShowtimeStatistic6
+InvoiceStatView6 -down- InvoiceStatistic6
+' ===== Thuc the (dong bo voi Hinh 9) =====
+Movie6 <|-up- MovieStatistic6
+Showtime6 <|-up- ShowtimeStatistic6
+Invoice6 <|-up- InvoiceStatistic6
+Showtime6 "n" o-left- "1" Movie6
+Showtime6 "n" o-down- "1" ScreeningRoom6
+Showtime6 "n" o-down- "1" ShowDate6
+Showtime6 "n" o-down- "1" TimeSlot6
+Showtime6 "n" o-down- "1" ShowFormat6
+Showtime6 "1" -right- "n" Invoice6
+Ticket6 "n" o-up- "1" Showtime6
+Invoice6 "1" *-down- "n" Ticket6
+SalesChannel6 "1" -up- "n" Invoice6
+Customer6 "0..1" -up- "n" Invoice6
+Salesperson6 "0..1" -up- "n" Invoice6
+Person6 <|-up- Employee6
+Person6 <|-up- Customer6
+Employee6 <|-up- Salesperson6
+Person6 "1" o-down- "1" FullName6
+@enduml

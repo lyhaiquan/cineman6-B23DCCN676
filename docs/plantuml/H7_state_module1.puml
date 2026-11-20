@@ -1,0 +1,22 @@
+@startuml H7_state_module1
+' Hinh 7 - Bieu do trang thai module 1: dang ki thanh vien - B23DCCN676
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam state {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+hide empty description
+state "Hiện GD trang chủ khách hàng" as S1
+state "Hiện GD nhập thông tin đăng kí" as S2
+state "Hiện GD đăng kí thành công" as S3
+[*] --> S1 : Bắt đầu
+S1 --> S2 : [Chọn đăng kí thành viên]
+S2 --> S2 : [Click Đăng kí, dữ liệu sai\nhoặc SĐT/email đã tồn tại]
+S2 --> S1 : [Click Huỷ]
+S2 --> S3 : [Click Đăng kí, dữ liệu hợp lệ]
+S3 --> [*] : [Click Về trang chủ]
+@enduml

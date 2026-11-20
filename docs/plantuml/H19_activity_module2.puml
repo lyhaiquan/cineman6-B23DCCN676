@@ -1,0 +1,47 @@
+@startuml H19_activity_module2
+' Hinh 19 - Bieu do hoat dong thiet ke modul xem thong ke - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam activity {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+  DiamondBackgroundColor #FDFDFD
+  DiamondBorderColor #444444
+}
+skinparam partition {
+  BorderColor #888888
+  FontStyle bold
+}
+|gdManagerHome6.jsp|
+start
+:Hiển thị GD chính của nhân viên quản lí;
+|gdSelectReport6.jsp|
+:Hiển thị danh sách loại thống kê;
+:Nhận lựa chọn loại thống kê;
+|gdMovieRevenueStat6.jsp|
+:Hiển thị ô chọn ngày, bảng kết quả rỗng;
+:Nhận ngày bắt đầu, ngày kết thúc;
+if (Khoảng ngày hợp lệ?) then ([không - ngoại lệ 8a])
+  :Đặt outError, hiển thị lại;
+  stop
+else ([có])
+endif
+:Lưu startDate, endDate vào session;
+:Gọi MovieStatisticDAO6:
+getMovieRevenueStat(startDate, endDate);
+:Hiển thị bảng thống kê phim;
+:Nhận click chọn 1 phim;
+|gdShowtimeStat6.jsp|
+:Gọi ShowtimeStatisticDAO6:
+getShowtimeStatOfMovie(idMovie, startDate, endDate);
+:Hiển thị bảng thống kê suất chiếu;
+:Nhận click chọn 1 suất chiếu;
+|gdInvoiceStat6.jsp|
+:Gọi InvoiceStatisticDAO6:
+getInvoiceStatOfShowtime(idShowtime);
+:Hiển thị bảng thống kê hóa đơn;
+stop
+@enduml

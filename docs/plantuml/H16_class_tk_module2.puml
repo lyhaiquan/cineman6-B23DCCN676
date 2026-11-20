@@ -1,0 +1,245 @@
+@startuml H16_class_tk_module2
+' Hinh 16 - Bieu do lop thiet ke modul xem thong ke phim theo doanh thu - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam class {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam classAttributeIconSize 0
+skinparam nodesep 35
+skinparam ranksep 55
+hide circle
+hide empty methods
+
+' ===================== Tang giao dien (JSP) =====================
+class "gdManagerHome6.jsp" as GDMH {
+-subViewReport : link
+-emp : Employee6
+}
+class "gdSelectReport6.jsp" as GDSR {
+-inoutReportType : Select
+-subContinue : submit
+-subBack : submit
+-emp : Employee6
+}
+class "gdMovieRevenueStat6.jsp" as GDMR {
+-inStartDate : Date
+-inEndDate : Date
+-subView : submit
+-outsubMovieStatList : Table + link
+-subBack : submit
+-outError : Label
+-listMovieStat : MovieStatistic6[]
+-emp : Employee6
+}
+class "gdShowtimeStat6.jsp" as GDST {
+-outMovieInfo : Label
+-outsubShowtimeStatList : Table + link
+-subBack : submit
+-movie : Movie6
+-startDate : Date
+-endDate : Date
+-listShowtimeStat : ShowtimeStatistic6[]
+-emp : Employee6
+}
+class "gdInvoiceStat6.jsp" as GDIS {
+-outShowtimeInfo : Label
+-outInvoiceStatList : Table
+-subBack : submit
+-showtime : Showtime6
+-listInvoiceStat : InvoiceStatistic6[]
+-emp : Employee6
+}
+
+' ===================== Tang truy xuat du lieu (DAO) =====================
+abstract class DAO6 {
+#con : Connection
++DAO6()
+}
+class MovieStatisticDAO6 {
++MovieStatisticDAO6()
++getMovieRevenueStat(startDate : Date, endDate : Date) : MovieStatistic6[]
+}
+class ShowtimeStatisticDAO6 {
++ShowtimeStatisticDAO6()
++getShowtimeStatOfMovie(idMovie : integer, startDate : Date, endDate : Date) : ShowtimeStatistic6[]
+}
+class InvoiceStatisticDAO6 {
++InvoiceStatisticDAO6()
++getInvoiceStatOfShowtime(idShowtime : integer) : InvoiceStatistic6[]
+}
+
+' ===================== Tang thuc the - lop thong ke =====================
+class MovieStatistic6 {
+-startDate : Date
+-endDate : Date
+-totalShowtimes : integer
+-totalTicketsSold : integer
+-totalRevenue : long
+}
+class ShowtimeStatistic6 {
+-totalInvoices : integer
+-totalTicketsSold : integer
+-occupancyRate : float
+-revenue : long
+}
+class InvoiceStatistic6 {
+-ticketCount : integer
+-revenue : long
+}
+
+' ===================== Tang thuc the =====================
+class Movie6 {
+-id : integer
+-title : String
+-director : String
+-mainActors : String
+-duration : integer
+-releaseDate : Date
+-ageRating : String
+-synopsis : String
+-status : String
+}
+class Showtime6 {
+-id : integer
+-showtimeCode : String
+-startTime : Date
+-endTime : Date
+-basePrice : long
+-status : String
+-movie : Movie6
+-room : ScreeningRoom6
+-showDate : ShowDate6
+-timeSlot : TimeSlot6
+-format : ShowFormat6
+}
+class Invoice6 {
+-id : integer
+-invoiceNo : String
+-createdAt : Date
+-totalAmount : long
+-discountAmount : long
+-finalAmount : long
+-status : String
+-showtime : Showtime6
+-channel : SalesChannel6
+-customer : Customer6
+-salesperson : Salesperson6
+-listTicket : Ticket6[]
+}
+class Ticket6 {
+-id : integer
+-ticketCode : String
+-price : long
+-status : String
+-issuedAt : Date
+-showtime : Showtime6
+}
+class ScreeningRoom6 {
+-id : integer
+-name : String
+-capacity : integer
+-description : String
+}
+class ShowDate6 {
+-id : integer
+-showDate : Date
+-dayOfWeek : String
+-isHoliday : boolean
+-priceFactor : float
+}
+class TimeSlot6 {
+-id : integer
+-name : String
+-startHour : integer
+-endHour : integer
+-priceFactor : float
+}
+class ShowFormat6 {
+-id : integer
+-name : String
+-priceFactor : float
+-description : String
+}
+class SalesChannel6 {
+-id : integer
+-name : String
+-description : String
+}
+abstract class Person6 {
+-id : integer
+-username : String
+-password : String
+-dateOfBirth : Date
+-phone : String
+-email : String
+-status : String
+-note : String
+-fullName : FullName6
+}
+class FullName6 {
+-id : integer
+-firstName : String
+-middleName : String
+-lastName : String
+}
+abstract class Employee6 {
+-employeeCode : String
+-position : String
+-hireDate : Date
+}
+class Salesperson6 {
+-counterCode : String
+-workShift : String
+}
+class Customer6 {
+-customerCode : String
+-registeredDate : Date
+-points : integer
+}
+
+' ===================== Quan he giua cac lop giao dien =====================
+GDMH -right- GDSR
+GDSR -right- GDMR
+GDMR -right- GDST
+GDST -right- GDIS
+
+' ===================== Giao dien goi DAO =====================
+GDMR -down-> MovieStatisticDAO6
+GDST -down-> ShowtimeStatisticDAO6
+GDIS -down-> InvoiceStatisticDAO6
+
+' ===================== Ke thua DAO =====================
+MovieStatisticDAO6 -left-|> DAO6
+ShowtimeStatisticDAO6 -left-|> DAO6
+InvoiceStatisticDAO6 -left-|> DAO6
+
+' ===================== DAO thao tac tren lop thong ke =====================
+MovieStatisticDAO6 -down- MovieStatistic6
+ShowtimeStatisticDAO6 -down- ShowtimeStatistic6
+InvoiceStatisticDAO6 -down- InvoiceStatistic6
+
+' ===================== Quan he thuc the (giu nguyen nhu Hinh 4) =====================
+MovieStatistic6 -down-|> Movie6
+ShowtimeStatistic6 -down-|> Showtime6
+InvoiceStatistic6 -down-|> Invoice6
+Showtime6 "n" o-- "1" Movie6
+Showtime6 "n" o-- "1" ScreeningRoom6
+Showtime6 "n" o-- "1" ShowDate6
+Showtime6 "n" o-- "1" TimeSlot6
+Showtime6 "n" o-- "1" ShowFormat6
+Showtime6 "1" -- "n" Invoice6
+Ticket6 "n" o-- "1" Showtime6
+Invoice6 "1" *-- "n" Ticket6
+SalesChannel6 "1" -- "n" Invoice6
+Customer6 "0..1" -- "n" Invoice6
+Salesperson6 "0..1" -- "n" Invoice6
+Person6 <|-- Employee6
+Person6 <|-- Customer6
+Employee6 <|-- Salesperson6
+Person6 "1" o-- "1" FullName6
+@enduml

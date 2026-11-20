@@ -1,0 +1,126 @@
+@startuml H14_gui_module2
+' Hinh 14 - Thiet ke giao dien modul xem thong ke phim theo doanh thu - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 12
+skinparam nodesep 35
+skinparam ranksep 35
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #FFFFFF
+}
+
+rectangle GD1 [
+{{
+salt
+{+
+  <b>CINEMAN — Trang chủ quản lí
+  .
+  Quản lí phim      Quản lí lịch chiếu
+  .
+  <b>Xem báo cáo   <color:#777777>subViewReport : link
+  .
+}
+}}
+]
+
+rectangle GD2 [
+{{
+salt
+{+
+  <b>Chọn loại thống kê
+  .
+  {
+    Loại thống kê | ^Thống kê phim theo doanh thu^ | <color:#777777>inoutReportType
+  }
+  .
+  {
+    [  Tiếp tục  ] | <color:#777777>subContinue | [  Quay lại  ] | <color:#777777>subBack
+  }
+}
+}}
+]
+
+rectangle GD3 [
+{{
+salt
+{+
+  <b>Thống kê phim theo doanh thu
+  .
+  {
+    Ngày bắt đầu:  | "01/08/2026   " | <color:#777777>inStartDate | Ngày kết thúc:  | "31/08/2026   " | <color:#777777>inEndDate | [  Xem thống kê  ] | <color:#777777>subView
+  }
+  .
+  {#
+    <b>TT | <b>Tên phim            | <b>Số suất chiếu | <b>Số vé bán | <b>Doanh thu (VNĐ)
+    1     | Mắt Biếc 2 <i>(click)</i> | 84            | 9.150        | 823.500.000
+    .     | <color:#777777>outsubMovieStatList : Table + link | . | . | .
+    2     | Kẻ Trộm Mặt Trăng 5   | 60               | 6.240        | 499.200.000
+    3     | Nhà Bà Nữ 2           | 45               | 3.980        | 358.200.000
+    .     | <b>Tổng cộng          | <b>189           | <b>19.370    | <b>1.680.900.000
+  }
+  .
+  {
+    [  Quay lại  ]
+  }
+}
+}}
+]
+
+rectangle GD4 [
+{{
+salt
+{+
+  <b>Thống kê suất chiếu của phim
+  .
+  {
+    Phim:  | <b>Mắt Biếc 2   | Khoảng thời gian:  | <b>01/08/2026 – 31/08/2026 | <color:#777777>outMovieInfo
+  }
+  .
+  {#
+    <b>TT | <b>Mã suất | <b>Ngày chiếu | <b>Giờ chiếu (khung giờ) | <b>Phòng | <b>Định dạng | <b>Vé / Sức chứa | <b>Tỉ lệ lấp đầy | <b>Doanh thu (VNĐ)
+    1     | ST1042 <i>(click)</i> | 03/08/2026 | 19:30 – 21:45 (Tối) | P03 | IMAX | 120 / 120 | 100% | 17.970.000
+    .     | <color:#777777>outsubShowtimeStatList : Table + link | . | . | . | . | . | . | .
+    2     | ST1078 | 10/08/2026 | 20:00 – 22:15 (Tối)   | P01 | 2D   | 96 / 150  | 64%  | 8.640.000
+    3     | ST1105 | 17/08/2026 | 14:00 – 16:15 (Chiều) | P02 | 3D   | 45 / 100  | 45%  | 4.950.000
+  }
+  .
+  {
+    [  Quay lại  ]
+  }
+}
+}}
+]
+
+rectangle GD5 [
+{{
+salt
+{+
+  <b>Thống kê hoá đơn bán vé của suất chiếu
+  .
+  {
+    Suất chiếu:  | <b>ST1042   | Phim:  | <b>Mắt Biếc 2   | Ngày – giờ:  | <b>03/08/2026 19:30 | <color:#777777>outShowtimeInfo
+  }
+  .
+  {#
+    <b>TT | <b>Số hoá đơn | <b>Thời điểm lập | <b>Kênh bán | <b>Nhân viên lập | <b>Khách hàng | <b>Số vé | <b>Thành tiền (VNĐ)
+    1     | HD20260803-011 | 03/08/2026 18:05 | Tại quầy   | Trần Văn C | Nguyễn Thị B (MB2026000137) | 2 | 300.000
+    .     | <color:#777777>outInvoiceStatList : Table | . | . | . | . | . | .
+    2     | HD20260803-012 | 03/08/2026 18:11 | Trực tuyến | —          | Lê Văn D (MB2025000088)     | 4 | 570.000
+    3     | HD20260803-013 | 03/08/2026 18:24 | Tại quầy   | Trần Văn C | Khách vãng lai              | 2 | 300.000
+    .     | <b>Tổng cộng (47 hoá đơn) | . | . | . | . | <b>120 | <b>17.970.000
+  }
+  .
+  {
+    [  Quay lại  ]
+  }
+}
+}}
+]
+
+GD1 -[#808080,thickness=5]right-> GD2 : subViewReport
+GD2 -[#808080,thickness=5]down-> GD3 : subContinue
+GD3 -[#808080,thickness=5]down-> GD4 : outsubMovieStatList
+GD4 -[#808080,thickness=5]down-> GD5 : outsubShowtimeStatList
+@enduml

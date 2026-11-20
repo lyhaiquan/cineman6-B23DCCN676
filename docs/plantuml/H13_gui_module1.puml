@@ -1,0 +1,79 @@
+@startuml H13_gui_module1
+' Hinh 13 - Thiet ke giao dien modul dang ki thanh vien - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam nodesep 40
+skinparam ranksep 40
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #FFFFFF
+}
+
+rectangle GD1 [
+{{
+salt
+{+
+  <b>CINEMAN — Trang chủ
+  .
+  Phim đang chiếu     Lịch chiếu     Khuyến mãi
+  .
+  <b>Đăng kí thành viên   <color:#777777>subRegister : link
+  .
+}
+}}
+]
+
+rectangle GD2 [
+{{
+salt
+{+
+  <b>Đăng kí thành viên
+  .
+  {
+    Họ và tên (*)         | "Nguyễn Thị B                       " | <color:#777777>inFullName
+    Ngày sinh (*)         | "12/05/2003                         " | <color:#777777>inDateOfBirth
+    Số điện thoại (*)     | "0987654321                         " | <color:#777777>inPhone
+    Email (*)             | "b.nguyen@gmail.com                 " | <color:#777777>inEmail
+    Địa chỉ               | "12 Trần Phú, Hà Đông, Hà Nội       " | <color:#777777>inAddress
+    Mật khẩu (*)          | "***********                        " | <color:#777777>inPassword
+    Nhập lại mật khẩu (*) | "***********                        " | <color:#777777>inConfirmPassword
+  }
+  <color:#B00000>(thông báo lỗi hiện ngay dưới ô nhập sai)   <color:#777777>outError : Label
+  .
+  {
+    [  Đăng kí  ] | <color:#777777>subRegister   | [  Huỷ  ] | <color:#777777>subCancel
+  }
+}
+}}
+]
+
+rectangle GD3 [
+{{
+salt
+{+
+  <b>Đăng kí thành viên thành công!
+  .
+  {
+    Mã thành viên      | MB2026000137 | <color:#777777>outMemberInfo
+    Họ và tên          | Nguyễn Thị B
+    Số điện thoại      | 0987654321
+    Hạng thành viên    | Thường
+    Điểm tích luỹ      | 0
+    Ngày đăng kí       | 15/07/2026
+  }
+  .
+  Mời quý khách tới quầy để được nhân viên xuất thẻ thành viên   <color:#777777>outGuide
+  .
+  {
+    [  Về trang chủ  ] | <color:#777777>subHome
+  }
+}
+}}
+]
+
+GD1 -[#808080,thickness=5]right-> GD2 : subRegister
+GD2 -[#808080,thickness=5]down-> GD3 : subRegister
+GD3 -[#808080,thickness=5]left-> GD1 : subHome
+@enduml

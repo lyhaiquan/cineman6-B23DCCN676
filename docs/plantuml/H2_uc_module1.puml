@@ -1,0 +1,27 @@
+@startuml H2_uc_module1
+' Hinh 2 - Use case chi tiet module 1: Register Membership 6 - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam usecase {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam actor {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+left to right direction
+skinparam packageStyle rectangle
+actor "Customer 6" as Customer
+rectangle "Module đăng kí thành viên" {
+usecase "Register Membership 6" as M
+usecase "Enter Personal Info 6" as U1
+usecase "View Registration Result 6" as U2
+}
+Customer -- M
+M ..> U1 : <<include>>
+M ..> U2 : <<include>>
+@enduml

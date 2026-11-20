@@ -1,0 +1,68 @@
+@startuml H1_uc_tongquan
+' Hinh 1 - Bieu do use case tong quan - CineMan - B23DCCN676 - De 16
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam usecase {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+skinparam actor {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Person 6" as Person
+actor "Employee 6" as Employee
+actor "Manager 6" as Manager
+actor "Salesperson 6" as Sales
+actor "Customer 6" as Customer
+
+Employee -up-|> Person
+Customer -up-|> Person
+Manager -up-|> Employee
+Sales -up-|> Employee
+
+rectangle "Hệ thống CineMan" {
+  usecase "Login 6" as UC01
+  usecase "Manage Movie 6" as UC02
+  usecase "Manage Screening Room 6" as UC03
+  usecase "Schedule Showtime 6" as UC04
+  usecase "View Statistics 6" as UC05
+  usecase "View Movie Revenue\nStatistics 6" as UC051
+  usecase "View Customer\nStatistics 6" as UC052
+  usecase "View Revenue\nStatistics 6" as UC053
+  usecase "Buy Ticket At Counter 6" as UC06
+  usecase "Issue Membership Card 6" as UC07
+  usecase "Register Membership 6" as UC08
+  usecase "Search Movie 6" as UC09
+  usecase "Buy Ticket Online 6" as UC10
+}
+
+' Dang nhap gan voi tac nhan cha (giong Hinh 3.1 cua tai lieu)
+Person -- UC01
+
+' Nhan vien quan li
+Manager -- UC02
+Manager -- UC03
+Manager -- UC04
+Manager -- UC05
+UC05 <.. UC051 : <<extend>>
+UC05 <.. UC052 : <<extend>>
+UC05 <.. UC053 : <<extend>>
+
+' Nhan vien ban hang
+Sales -- UC06
+Sales -- UC07
+
+' Khach hang (tham gia gian tiep vao UC06, UC07)
+UC06 -- Customer
+UC07 -- Customer
+UC08 -- Customer
+UC09 -- Customer
+UC10 -- Customer
+@enduml

@@ -1,0 +1,29 @@
+@startuml H8_state_module2
+' Hinh 8 - Bieu do trang thai module 2: xem thong ke phim theo doanh thu - B23DCCN676
+skinparam shadowing false
+skinparam dpi 170
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 13
+skinparam ArrowColor #333333
+skinparam state {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+hide empty description
+state "Hiện GD chính của quản lí" as S1
+state "Hiện GD chọn loại thống kê" as S2
+state "Hiện GD thống kê phim theo doanh thu" as S3
+state "Hiện GD thống kê suất chiếu của 1 phim" as S4
+state "Hiện GD thống kê hóa đơn của 1 suất chiếu" as S5
+[*] --> S1 : Bắt đầu
+S1 --> S2 : [Chọn xem báo cáo]
+S2 --> S1 : [Chọn quay lại]
+S2 --> S3 : [Chọn TK phim theo doanh thu,\nclick Tiếp tục]
+S3 --> S3 : [Chọn ngày bắt đầu, ngày kết thúc,\nclick Xem thống kê]
+S3 --> S2 : [Chọn quay lại]
+S3 --> S4 : [Click 1 phim]
+S4 --> S3 : [Chọn quay lại]
+S4 --> S5 : [Click 1 suất chiếu]
+S5 --> S4 : [Chọn quay lại]
+S1 --> [*] : [Đăng xuất]
+@enduml

@@ -1,0 +1,216 @@
+@startuml H24_csdl
+skinparam class {
+  BackgroundColor #FDFDFD
+  BorderColor #444444
+}
+hide circle
+hide empty methods
+class tblPerson6 {
+id : INT (PK)
+username : VARCHAR(50)
+password : VARCHAR(255)
+dateofbirth : DATE
+phone : VARCHAR(20)
+email : VARCHAR(100)
+status : VARCHAR(20)
+note : VARCHAR(255)
+tblFullName6id : INT (FK)
+tblAddress6id : INT (FK)
+}
+class tblFullName6 {
+id : INT (PK)
+firstname : VARCHAR(50)
+middlename : VARCHAR(50)
+lastname : VARCHAR(50)
+}
+class tblAddress6 {
+id : INT (PK)
+street : VARCHAR(100)
+ward : VARCHAR(50)
+district : VARCHAR(50)
+city : VARCHAR(50)
+}
+class tblEmployee6 {
+tblPerson6id : INT (PK, FK)
+employeecode : VARCHAR(20)
+position : VARCHAR(50)
+hiredate : DATE
+}
+class tblManager6 {
+tblEmployee6id : INT (PK, FK)
+managementlevel : VARCHAR(20)
+}
+class tblSalesperson6 {
+tblEmployee6id : INT (PK, FK)
+countercode : VARCHAR(20)
+workshift : VARCHAR(20)
+}
+class tblCustomer6 {
+tblPerson6id : INT (PK, FK)
+customercode : VARCHAR(20)
+registereddate : DATE
+points : INT
+tblMembershipRank6id : INT (FK)
+}
+class tblMembershipRank6 {
+id : INT (PK)
+name : VARCHAR(50)
+minpoints : INT
+discountrate : FLOAT
+description : VARCHAR(255)
+}
+class tblMembershipCard6 {
+id : INT (PK)
+cardno : VARCHAR(20)
+issueddate : DATE
+expirydate : DATE
+status : VARCHAR(20)
+tblCustomer6id : INT (FK)
+tblSalesperson6id : INT (FK)
+}
+class tblCinema6 {
+id : INT (PK)
+name : VARCHAR(100)
+hotline : VARCHAR(20)
+description : VARCHAR(255)
+tblAddress6id : INT (FK)
+}
+class tblScreeningRoom6 {
+id : INT (PK)
+name : VARCHAR(50)
+capacity : INT
+description : VARCHAR(255)
+tblCinema6id : INT (FK)
+}
+class tblSeat6 {
+id : INT (PK)
+rowlabel : VARCHAR(5)
+seatnumber : INT
+description : VARCHAR(255)
+tblScreeningRoom6id : INT (FK)
+tblSeatType6id : INT (FK)
+}
+class tblSeatType6 {
+id : INT (PK)
+name : VARCHAR(50)
+pricefactor : FLOAT
+description : VARCHAR(255)
+}
+class tblMovie6 {
+id : INT (PK)
+title : VARCHAR(150)
+director : VARCHAR(100)
+mainactors : VARCHAR(255)
+duration : INT
+releasedate : DATE
+agerating : VARCHAR(10)
+synopsis : TEXT
+status : VARCHAR(20)
+}
+class tblGenre6 {
+id : INT (PK)
+name : VARCHAR(50)
+description : VARCHAR(255)
+}
+class tblMovieGenre6 {
+id : INT (PK)
+ismaingenre : TINYINT(1)
+tblMovie6id : INT (FK)
+tblGenre6id : INT (FK)
+}
+class tblShowDate6 {
+id : INT (PK)
+showdate : DATE
+dayofweek : VARCHAR(20)
+isholiday : TINYINT(1)
+pricefactor : FLOAT
+}
+class tblTimeSlot6 {
+id : INT (PK)
+name : VARCHAR(50)
+starthour : INT
+endhour : INT
+pricefactor : FLOAT
+}
+class tblShowFormat6 {
+id : INT (PK)
+name : VARCHAR(50)
+pricefactor : FLOAT
+description : VARCHAR(255)
+}
+class tblShowtime6 {
+id : INT (PK)
+showtimecode : VARCHAR(20)
+starttime : DATETIME
+endtime : DATETIME
+baseprice : BIGINT
+status : VARCHAR(20)
+tblMovie6id : INT (FK)
+tblScreeningRoom6id : INT (FK)
+tblShowDate6id : INT (FK)
+tblTimeSlot6id : INT (FK)
+tblShowFormat6id : INT (FK)
+}
+class tblTicket6 {
+id : INT (PK)
+ticketcode : VARCHAR(20)
+price : BIGINT
+status : VARCHAR(20)
+issuedat : DATETIME
+tblInvoice6id : INT (FK)
+tblShowtime6id : INT (FK)
+tblSeat6id : INT (FK)
+}
+class tblInvoice6 {
+id : INT (PK)
+invoiceno : VARCHAR(20)
+createdat : DATETIME
+totalamount : BIGINT
+discountamount : BIGINT
+finalamount : BIGINT
+status : VARCHAR(20)
+tblShowtime6id : INT (FK)
+tblCustomer6id : INT (FK)
+tblSalesperson6id : INT (FK)
+tblSalesChannel6id : INT (FK)
+tblPaymentMethod6id : INT (FK)
+}
+class tblSalesChannel6 {
+id : INT (PK)
+name : VARCHAR(50)
+description : VARCHAR(255)
+}
+class tblPaymentMethod6 {
+id : INT (PK)
+name : VARCHAR(50)
+description : VARCHAR(255)
+}
+tblPerson6 "1" -- "1" tblEmployee6
+tblEmployee6 "1" -- "1" tblManager6
+tblEmployee6 "1" -- "1" tblSalesperson6
+tblPerson6 "1" -- "1" tblCustomer6
+tblFullName6 "1" -- "1" tblPerson6
+tblAddress6 "1" -- "1" tblPerson6
+tblAddress6 "1" -- "1" tblCinema6
+tblCinema6 "1" -- "n" tblScreeningRoom6
+tblScreeningRoom6 "1" -- "n" tblSeat6
+tblInvoice6 "1" -- "n" tblTicket6
+tblMovie6 "1" -- "n" tblMovieGenre6
+tblGenre6 "1" -- "n" tblMovieGenre6
+tblMovie6 "1" -- "n" tblShowtime6
+tblScreeningRoom6 "1" -- "n" tblShowtime6
+tblShowDate6 "1" -- "n" tblShowtime6
+tblTimeSlot6 "1" -- "n" tblShowtime6
+tblShowFormat6 "1" -- "n" tblShowtime6
+tblShowtime6 "1" -- "n" tblTicket6
+tblSeat6 "1" -- "n" tblTicket6
+tblSeatType6 "1" -- "n" tblSeat6
+tblMembershipRank6 "1" -- "n" tblCustomer6
+tblCustomer6 "1" -- "n" tblMembershipCard6
+tblSalesperson6 "1" -- "n" tblMembershipCard6
+tblShowtime6 "1" -- "n" tblInvoice6
+tblCustomer6 "0..1" -- "n" tblInvoice6
+tblSalesperson6 "0..1" -- "n" tblInvoice6
+tblSalesChannel6 "1" -- "n" tblInvoice6
+tblPaymentMethod6 "1" -- "n" tblInvoice6
+@enduml
