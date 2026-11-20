@@ -23,31 +23,31 @@ USE cineman6;
 -- =============================================================== nguoi
 CREATE TABLE tblfullname6 (
   id         INT AUTO_INCREMENT PRIMARY KEY,
-  firstname  VARCHAR(50),
-  middlename VARCHAR(50),
-  lastname   VARCHAR(50)
+  firstname  VARCHAR(50) NOT NULL,
+  middlename VARCHAR(50) NOT NULL,
+  lastname   VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE tbladdress6 (
   id       INT AUTO_INCREMENT PRIMARY KEY,
-  street   VARCHAR(100),
-  ward     VARCHAR(50),
-  district VARCHAR(50),
-  city     VARCHAR(50)
+  street   VARCHAR(100) NOT NULL,
+  ward     VARCHAR(50) NOT NULL,
+  district VARCHAR(50) NOT NULL,
+  city     VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE tblperson6 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   username    VARCHAR(50)  NOT NULL UNIQUE,
   password    VARCHAR(255) NOT NULL,
-  dateofbirth DATE,
-  phone       VARCHAR(20)  UNIQUE,
-  email       VARCHAR(100) UNIQUE,
+  dateofbirth DATE NOT NULL,
+  phone       VARCHAR(20) NOT NULL  UNIQUE,
+  email       VARCHAR(100) NOT NULL UNIQUE,
   -- gia dinh A25: dung ba gia tri, khop hang STATUS_* cua lop Person6
   status      VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',  -- ACTIVE, LOCKED, INACTIVE (kiem tra trong themKhachhang6)
   note        VARCHAR(255),
-  tblfullname6id INT,
-  tbladdress6id  INT,
+  tblfullname6id INT NOT NULL,
+  tbladdress6id  INT NOT NULL,
   FOREIGN KEY (tblfullname6id) REFERENCES tblfullname6(id),
   FOREIGN KEY (tbladdress6id)  REFERENCES tbladdress6(id)
 );
@@ -64,7 +64,7 @@ CREATE TABLE tblmembershiprank6 (
 CREATE TABLE tblcustomer6 (
   tblperson6id   INT PRIMARY KEY,
   customercode   VARCHAR(20) NOT NULL UNIQUE,
-  registereddate DATE,
+  registereddate DATE NOT NULL,
   points         INT NOT NULL DEFAULT 0,
   tblmembershiprank6id INT NOT NULL,
   FOREIGN KEY (tblperson6id)         REFERENCES tblperson6(id),
@@ -74,21 +74,21 @@ CREATE TABLE tblcustomer6 (
 CREATE TABLE tblemployee6 (
   tblperson6id INT PRIMARY KEY,
   employeecode VARCHAR(20) NOT NULL UNIQUE,
-  position     VARCHAR(50),
-  hiredate     DATE,
+  position     VARCHAR(50) NOT NULL,
+  hiredate     DATE NOT NULL,
   FOREIGN KEY (tblperson6id) REFERENCES tblperson6(id)
 );
 
 CREATE TABLE tblmanager6 (
   tblemployee6id  INT PRIMARY KEY,
-  managementlevel VARCHAR(20),
+  managementlevel VARCHAR(20) NOT NULL,
   FOREIGN KEY (tblemployee6id) REFERENCES tblemployee6(tblperson6id)
 );
 
 CREATE TABLE tblsalesperson6 (
   tblemployee6id INT PRIMARY KEY,
-  countercode    VARCHAR(20),
-  workshift      VARCHAR(20),
+  countercode    VARCHAR(20) NOT NULL,
+  workshift      VARCHAR(20) NOT NULL,
   FOREIGN KEY (tblemployee6id) REFERENCES tblemployee6(tblperson6id)
 );
 
@@ -96,41 +96,41 @@ CREATE TABLE tblsalesperson6 (
 CREATE TABLE tblmovie6 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   title       VARCHAR(150) NOT NULL,
-  director    VARCHAR(100),
-  mainactors  VARCHAR(255),
-  duration    INT,
-  releasedate DATE,
-  agerating   VARCHAR(10),
-  synopsis    TEXT,
-  status      VARCHAR(20)
+  director    VARCHAR(100) NOT NULL,
+  mainactors  VARCHAR(255) NOT NULL,
+  duration    INT NOT NULL,
+  releasedate DATE NOT NULL,
+  agerating   VARCHAR(10) NOT NULL,
+  synopsis    TEXT NOT NULL,
+  status      VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE tblscreeningroom6 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
-  name        VARCHAR(50),
-  capacity    INT,
+  name        VARCHAR(50) NOT NULL,
+  capacity    INT NOT NULL,
   description VARCHAR(255)
 );
 
 CREATE TABLE tblshowdate6 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   showdate    DATE NOT NULL UNIQUE,
-  dayofweek   VARCHAR(20),
+  dayofweek   VARCHAR(20) NOT NULL,
   isholiday   TINYINT(1) NOT NULL DEFAULT 0,
   pricefactor FLOAT NOT NULL DEFAULT 1
 );
 
 CREATE TABLE tbltimeslot6 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
-  name        VARCHAR(50),
-  starthour   INT,
-  endhour     INT,
+  name        VARCHAR(50) NOT NULL,
+  starthour   INT NOT NULL,
+  endhour     INT NOT NULL,
   pricefactor FLOAT NOT NULL DEFAULT 1
 );
 
 CREATE TABLE tblshowformat6 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
-  name        VARCHAR(50),
+  name        VARCHAR(50) NOT NULL,
   pricefactor FLOAT NOT NULL DEFAULT 1,
   description VARCHAR(255)
 );
@@ -138,10 +138,10 @@ CREATE TABLE tblshowformat6 (
 CREATE TABLE tblshowtime6 (
   id           INT AUTO_INCREMENT PRIMARY KEY,
   showtimecode VARCHAR(20) NOT NULL UNIQUE,
-  starttime    DATETIME,
-  endtime      DATETIME,
-  baseprice    BIGINT,
-  status       VARCHAR(20),
+  starttime    DATETIME NOT NULL,
+  endtime      DATETIME NOT NULL,
+  baseprice    BIGINT NOT NULL,
+  status       VARCHAR(20) NOT NULL,
   tblmovie6id         INT NOT NULL,
   tblscreeningroom6id INT NOT NULL,
   tblshowdate6id      INT NOT NULL,
@@ -157,19 +157,19 @@ CREATE TABLE tblshowtime6 (
 -- ============================================================= ban ve
 CREATE TABLE tblsaleschannel6 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
-  name        VARCHAR(50),
+  name        VARCHAR(50) NOT NULL,
   description VARCHAR(255)
 );
 
--- Gia dinh A9: khach hang va nhan vien lap deu co the NULL
+-- Gia dinh A9: chi khach hang (khach vang lai) va nhan vien lap (hoa don truc tuyen) duoc NULL
 CREATE TABLE tblinvoice6 (
   id             INT AUTO_INCREMENT PRIMARY KEY,
   invoiceno      VARCHAR(20) NOT NULL UNIQUE,
-  createdat      DATETIME,
+  createdat      DATETIME NOT NULL,
   totalamount    BIGINT NOT NULL DEFAULT 0,
   discountamount BIGINT NOT NULL DEFAULT 0,
   finalamount    BIGINT NOT NULL DEFAULT 0,
-  status         VARCHAR(20),
+  status         VARCHAR(20) NOT NULL,
   tblshowtime6id     INT NOT NULL,
   tblcustomer6id     INT NULL,
   tblsalesperson6id  INT NULL,
@@ -183,9 +183,9 @@ CREATE TABLE tblinvoice6 (
 CREATE TABLE tblticket6 (
   id         INT AUTO_INCREMENT PRIMARY KEY,
   ticketcode VARCHAR(20) NOT NULL UNIQUE,
-  price      BIGINT,
-  status     VARCHAR(20),
-  issuedat   DATETIME,
+  price      BIGINT NOT NULL,
+  status     VARCHAR(20) NOT NULL,
+  issuedat   DATETIME NOT NULL,
   tblinvoice6id  INT NOT NULL,
   tblshowtime6id INT NOT NULL,
   FOREIGN KEY (tblinvoice6id)  REFERENCES tblinvoice6(id),
